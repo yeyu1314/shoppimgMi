@@ -5,10 +5,10 @@
       <p href="">小米商城</p>
     </div>
     <div class="footer-link">
-      <a href="">微微夜雨博客</a><span>|</span>
-      <a href="">微微夜雨博客</a><span>|</span>
-      <a href="">微微夜雨博客</a><span>|</span>
-      <a href="">微微夜雨博客</a>
+      <a href="https://www.cnblogs.com/weiweiyeyu/" target="_blank">微微夜雨博客</a><span>|</span>
+      <a href="https://www.cnblogs.com/weiweiyeyu/" target="_blank">微微夜雨博客</a><span>|</span>
+      <a href="https://www.cnblogs.com/weiweiyeyu/" target="_blank">微微夜雨博客</a><span>|</span>
+      <a href="https://www.cnblogs.com/weiweiyeyu/" target="_blank">微微夜雨博客</a>
     </div>
     <div class="copyright">Copyright ©2019 <span class="domain">mi.futurefe.com</span> All Rights Reserved.</div>
   </div>

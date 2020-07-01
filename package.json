@@ -62,5 +62,18 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "```\r yarn install\r ```",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeyu1314/shoppimgMi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeyu1314/shoppimgMi/issues"
+  },
+  "homepage": "https://github.com/yeyu1314/shoppimgMi#readme"
 }

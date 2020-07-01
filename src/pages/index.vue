@@ -78,7 +78,7 @@
                 <div class="item-info">
                   <h3>{{item.name}}</h3>
                   <p>{{item.subtitle}}</p>
-                  <p class="price">{{item.price}}元</p>
+                  <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
                 </div>
               </div>
             </div>
@@ -87,10 +87,24 @@
       </div>
     </div>
     <ServiceBar></ServiceBar>
+    <modal 
+      title="提示" 
+      sureText="查看购物车" 
+      btnType="1" 
+      modalType="middle" 
+      v-bind:showModal="showModal"
+      v-on:submit="goToCart"
+      v-on:cancel="showModal=false"
+      >
+      <template v-slot:body>
+        <p>商品添加成功！</p>
+      </template>
+    </modal>
   </div>
 </template>
 <script>
 import ServiceBar from '../components/ServiceBar'
+import Modal from './../components/Modal'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
   export default{
@@ -98,7 +112,8 @@ import 'swiper/css/swiper.css'
     components : {
       ServiceBar,
       Swiper,
-      SwiperSlide
+      SwiperSlide,
+      Modal
     },
     data(){
       return {
@@ -179,6 +194,7 @@ import 'swiper/css/swiper.css'
           }
         ],
         phoneList:[],
+        showModal:false
       }
     },
     mounted(){
@@ -189,12 +205,20 @@ import 'swiper/css/swiper.css'
         this.axios.get('/products',{
           params:{
             categoryId:100012,
-            pageSize:8
+            pageSize:14
           }
-        }).then((res)=>{
+        }).then( res =>{
+          console.log(res)
+          res.list = res.list.slice(6,14);
           this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
         })
-      }
+      },
+      addCart(){ //天添加购物车
+        this.showModal = true;
+      },
+      goToCart(){//查看购物车
+        this.$router.push('/cart');
+      },
     }
   }
 </script>
