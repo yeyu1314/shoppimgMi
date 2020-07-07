@@ -1,7 +1,7 @@
 <template>
     <div class="nav-bar" :class="{'is_fixed':isFixed}">
         <div class="container">
-            <div class="pro-title">小米</div>
+            <div class="pro-title">{{title}}</div>
             <div class="pro-param">
                 <a href="javascript:;">概述</a><span>|</span>
                 <a href="javascript:;">参数</a><span>|</span>
