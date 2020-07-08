@@ -213,8 +213,16 @@ import 'swiper/css/swiper.css'
           this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
         })
       },
-      addCart(){ //天添加购物车
-        this.showModal = true;
+      addCart(id){ //添加购物车
+        this.axios.post('/carts',{
+          productId:id,
+          selected: true
+        }).then((res)=>{
+          this.showModal = true;
+          this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+        }).catch(()=>{
+          this.showModal = true;
+        });
       },
       goToCart(){//查看购物车
         this.$router.push('/cart');
