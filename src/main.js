@@ -6,6 +6,8 @@ import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
 import store from './store'
 import App from './App.vue'
+import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
 // import env from './env'
 // mock开关
 // const mock = false;
@@ -30,7 +32,7 @@ axios.interceptors.response.use(function(response){
     }
     return Promise.reject(res)
   }else{
-    alert(res.msg);
+    Message.warning(res.msg);
     return Promise.reject(res)
   }
 });
@@ -41,6 +43,7 @@ Vue.use(VueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg'
 })
 Vue.config.productionTip = false
+Vue.prototype.$message = Message;
 
 new Vue({
   store,

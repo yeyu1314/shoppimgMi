@@ -49,7 +49,7 @@ input{
       @include bgImg(55px,55px,'/imgs/mi-home.png',55px);
     }
     &:hover:before{
-      margin-left:-55px;
+      margin-left:-110px;
       transition:margin .2s;
     }
   }
