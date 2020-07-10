@@ -16,7 +16,13 @@
 </template>
 <script>
   export default{
-    name:'scan-pay-code'
+    name:'scan-pay-code',
+    props:['img'],
+    methods:{
+      close(){
+        this.$emit('close');
+      }
+    }
   }
 </script>
 <style lang="scss">

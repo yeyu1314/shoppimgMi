@@ -1,5 +1,10 @@
 <template>
-  <div class="order-pay">    
+  <div class="order-pay">
+    <order-header title="订单支付">
+      <template v-slot:tip>
+        <span>请谨防钓鱼链接或诈骗电话，了解更多</span>
+      </template>
+    </order-header>
     <div class="wrapper">
       <div class="container">
         <div class="order-wrap">
@@ -50,11 +55,27 @@
         </div>
       </div>
     </div>
-    <scan-pay-code v-if="showPay"></scan-pay-code>
+    <scan-pay-code v-if="showPay" @close="closePayModal"></scan-pay-code>
+    <modal
+      title="支付确认"
+      btnType="3"
+      :showModal="showPayModal"
+      sureText="查看订单"
+      cancelText="未支付"
+      @cancel="showPayModal=false"
+      @submit="goOrderList"
+    >
+      <template v-slot:body>
+        <p>您确认是否完成支付？</p>
+      </template>
+    </modal>
   </div>
 </template>
 <script>
+import QRCode from 'qrcode'
 import ScanPayCode from './../../components/ScanPayCode'
+import Modal from './../../components/Modal'
+import OrderHeader from './../../components/OrderHeader'
 export default{
   name:'order-pay',
   data(){
@@ -75,7 +96,9 @@ export default{
     this.getOrderDetail()
   },
   components:{
-    ScanPayCode
+    ScanPayCode,
+    Modal,
+    OrderHeader
   },
   methods:{
     getOrderDetail(){
@@ -100,10 +123,35 @@ export default{
     paySubmit(payType){
       if(payType == 1){ //支付宝支付
         this.payType = 1
-        window.open('/#/order/alipay?orderId='+this.orderId,'_blank');
-      }else{
+        window.open('/#/order/alipay?orderId='+this.orderNo,'_blank');
+      }else{// 微信支付
         this.payType = 2
+        this.axios.post('/pay',{
+          orderId:this.orderNo,
+          orderName:'Vue高仿小米商城',
+          amount:0.01,//单位元
+          payType:2 //1支付宝，2微信
+        }).then((res)=>{
+          QRCode.toDataURL(res.content).then(url => {
+            this.showPay = true;
+            this.payImg = url;
+            this.loopOrderState();
+          }).catch(() => {
+            this.$message.error('微信二维码生成失败，请稍后重试');
+          })
+        })
       }
+    },
+    // 轮询当前订单支付状态
+    loopOrderState(){
+      this.T = setInterval(()=>{
+        this.axios.get(`/orders/${this.orderNo}`).then((res)=>{
+          if(res.status == 20){
+            clearInterval(this.T);
+            this.goOrderList();
+          }
+        })
+      },1000);
     }
   }
 }
