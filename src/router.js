@@ -20,7 +20,8 @@ export default new Router({
           path: '/product/:id',
           name: 'product',
           component: () => import('./pages/productList/product.vue')
-        }, {
+        }, 
+        {
           path: '/detail/:id',
           name: 'detail',
           component: () => import('./pages/productList/detail.vue')
@@ -60,7 +61,7 @@ export default new Router({
         {
           path: 'alipay',
           name: 'alipay',
-          component: () => import('./pages/productList/alipay.vue')
+          component: () => import('./pages/orderList/alipay.vue')
         }
       ]
     }

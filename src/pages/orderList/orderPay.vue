@@ -44,8 +44,8 @@
           <h3>选择以下支付方式付款</h3>
           <div class="pay-way">
             <p>支付平台</p>
-            <div class="pay pay-ali checked"></div>
-            <div class="pay pay-wechat"></div>
+            <div class="pay pay-ali" :class="{'checked':payType == 1}" @click="paySubmit(1)"></div>
+            <div class="pay pay-wechat" :class="{'checked':payType == 2}" @click="paySubmit(2)"></div>
           </div>
         </div>
       </div>
@@ -95,6 +95,15 @@ export default{
     },
     goOrderList(){
       this.$router.push('/order/list');
+    },
+    //支付
+    paySubmit(payType){
+      if(payType == 1){ //支付宝支付
+        this.payType = 1
+        window.open('/#/order/alipay?orderId='+this.orderId,'_blank');
+      }else{
+        this.payType = 2
+      }
     }
   }
 }
@@ -188,6 +197,7 @@ export default{
         padding:26px 50px 72px;
         background-color:#ffffff;
         color: #333333;
+        text-align: left;
         h3{
           font-size: 20px;
           font-weight: 200;
