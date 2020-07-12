@@ -55,11 +55,26 @@ export default {
         username,
         password
       }).then((res)=>{
-        this.$cookie.set('userId',res.id,{expires:'1M'});
+        this.$cookie.set('userId',res.id,{expires:'Session'});
         // to-do 保存用户名
         // this.$store.dispatch('saveUserName', res.username);
         this.saveUserName(res.username)
-        this.$router.push('/index');
+        
+        // this.$router.push('/index'); //正常跳转
+
+        /* this.$router.push({ //query携带参数，(明文传输，query的参数会显示在地址栏，类似于get请求)
+          path:'/index',
+          query:{
+            from:'login'
+          }
+        });*/
+
+        this.$router.push({ //params携带参数，地址栏不会显示参数，类似于post请求
+          name:'index',
+          params:{
+            from:'login'
+          }
+        });
       })
     },
     register(){

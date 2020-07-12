@@ -16,8 +16,10 @@ export default {
     }
   },
   mounted(){
-    this.getUser();
-    this.getCartCount();
+    if(this.$cookie.get('userId')){ //登陆状态下才请求用户信息和购物车数量
+      this.getUser();
+      this.getCartCount();
+    }    
   },
   methods: {
     getUser(){
