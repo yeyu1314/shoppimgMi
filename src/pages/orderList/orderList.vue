@@ -132,9 +132,42 @@
           }
         })
       },
-      handleChange(){
-
-      }
+      // 第一种方法：分页器
+      handleChange(pageNum){
+        this.pageNum = pageNum;
+        this.getOrderList();
+      },
+      // 第二种方法：加载更多按钮
+      loadMore(){
+        this.pageNum++;
+        this.getOrderList();
+      },
+      // 第三种方法：滚动加载，通过npm插件实现
+      scrollMore(){
+        this.busy = true;
+        setTimeout(()=>{
+          this.pageNum++;
+          this.getList();
+        },500);
+      },
+      // 专门给scrollMore使用
+      getList(){
+        this.loading = true;
+        this.axios.get('/orders',{
+          params:{
+            pageSize:10,
+            pageNum:this.pageNum
+          }
+        }).then((res)=>{
+          this.list = this.list.concat(res.list);
+          this.loading = false;
+          if(res.hasNextPage){
+            this.busy=false;
+          }else{
+            this.busy=true;
+          }
+        });
+      },
     }
   }
 </script>
